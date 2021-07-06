@@ -93,7 +93,7 @@ def _predict(input, output, debug):
             features = feature_extract(img)
             results = image_caption(features)
             if debug:
-                results = _convert_to_sentence(tokenizer, results)
+                results = _convert_to_sentence(tokenizer, results)[0]
             output.put(results)
         except Exception as e:
             output.put("E:"+str(e))
@@ -145,11 +145,9 @@ def predict(img):
 
     Returns
     -------
-    Returns
-    -------
     list or str
-        返回形状为 (1, length) 的列表，列表元素为单词的 embedding 值。
-        debug 模式下，返回形状为 (1,) 的列表，列表元素为预测句子字符串。
+        返回形状为 (1, length) 的列表，列表元素为单词的索引值。
+        debug 模式下，返回预测句子字符串。
         若产生异常，返回以 E: 开头的异常字符串。
     """
 
